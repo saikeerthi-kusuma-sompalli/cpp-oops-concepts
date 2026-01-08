@@ -50,4 +50,62 @@ Linker         → connects implementations
 Executable
 
 Each .cpp is compiled separately, and each one gets its own copy of included headers.
+------------------------------------------------------
+Step	               Tool	          Command
+Compile	            Compiler	        g++ -c file.cpp
+Link	               Linker	        g++ file.o
+Run	               OS	              ./app
+
+
+we can't declare a two things (variables + functions) with same name in same scope in c++ compiler will get confused
+But function overloading is supported
+
+┌──────────────────────────┐
+│   Compiler sees symbol   │
+│        "count"           │
+└─────────────┬────────────┘
+              │
+              ▼
+┌──────────────────────────┐
+│  NAME LOOKUP PHASE       │
+│  Find all "count"        │
+│  visible in scope        │
+└─────────────┬────────────┘
+              │
+      ┌───────┴─────────┐
+      │                 │
+      ▼                 ▼
+┌──────────────┐   ┌──────────────┐
+│ variable     │   │ function     │
+│ int count    │   │ std::count() │
+└──────────────┘   └──────────────┘
+      │                 │
+      └───────┬─────────┘
+              ▼
+┌──────────────────────────┐
+│ Mixed symbol types found │
+│ (variable + function)   │
+└─────────────┬────────────┘
+              ▼
+❌ ERROR: name is ambiguous
+(overload resolution NEVER starts)
+
+Source Code 
+   ↓
+Lexical Analysis (Input: Source code / Output: Tokens), Lexical analysis converts source code into a stream of tokens such as keywords, identifiers, literals, operators, and punctuators
+   ↓
+Syntax Analysis 
+   ↓
+Semantic Analysis   ← (name lookup here)
+   ↓
+Intermediate Code
+   ↓
+Optimization
+   ↓
+Machine Code
+   ↓
+Linker
+   ↓
+Executable
+
 
